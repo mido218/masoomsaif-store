@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معصوم سيف للأحذية والحقائب</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #000;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #444;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      color: #f8c100;
+    }
+    #datetime {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+    nav {
+      background-color: #222;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #333;
+    }
+    nav a {
+      color: #f0f0f0;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: block;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background-color: #444;
+    }
+    .section {
+      padding: 30px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .section h2 {
+      border-bottom: 1px solid #555;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .upload-btn {
+      background-color: #333;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+    .upload-btn:hover {
+      background-color: #555;
+    }
+    .images {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .images img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #000;
+    }
+    .contact {
+      background-color: #111;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 2px solid #333;
+    }
+    .contact h2 {
+      margin-bottom: 20px;
+      color: #f8c100;
+    }
+    .contact a {
+      color: #f0f0f0;
+      text-decoration: none;
+      display: inline-block;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .contact a:hover {
+      color: #f8c100;
+    }
+    footer {
+      background-color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>معصوم سيف للأحذية والحقائب</h1>
+    <div id="datetime"></div>
+  </header>
+
+  <nav>
+    <a href="#men">الأحذية الرجالية</a>
+    <a href="#women">الأحذية النسائية</a>
+    <a href="#kids">أحذية الأطفال</a>
+    <a href="#bags">الحقائب</a>
+    <a href="#contact">تواصل معنا</a>
+  </nav>
+
+  <div class="section" id="men">
+    <h2>الأحذية الرجالية</h2>
+    <input type="file" class="upload-btn" multiple accept="image/*">
+    <div class="images" id="men-images"></div>
+  </div>
+
+  <div class="section" id="women">
+    <h2>الأحذية النسائية</h2>
+    <input type="file" class="upload-btn" multiple accept="image/*">
+    <div class="images" id="women-images"></div>
+  </div>
+
+  <div class="section" id="kids">
+    <h2>أحذية الأطفال</h2>
+    <input type="file" class="upload-btn" multiple accept="image/*">
+    <div class="images" id="kids-images"></div>
+  </div>
+
+  <div class="section" id="bags">
+    <h2>الحقائب</h2>
+    <input type="file" class="upload-btn" multiple accept="image/*">
+    <div class="images" id="bags-images"></div>
+  </div>
+
+  <div class="contact" id="contact">
+    <h2>تواصل معنا</h2>
+    <a href="https://wa.me/1234567890" target="_blank">واتساب: 1234567890</a><br>
+    <a href="https://www.facebook.com/yourpage" target="_blank">فيسبوك: معصوم سيف</a><br>
+    <a href="https://www.instagram.com/yourpage" target="_blank">إنستجرام: @masoomsaif</a>
+  </div>
+
+  <footer>
+    &copy; <span id="year"></span> معصوم سيف. جميع الحقوق محفوظة.
+  </footer>
+
+  <script>
+    const sections = ['men', 'women', 'kids', 'bags'];
+
+    sections.forEach(section => {
+      const input = document.querySelector(`#${section} input`);
+      const container = document.getElementById(`${section}-images`);
+      input.addEventListener('change', (e) => {
+        [...e.target.files].forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            const img = document.createElement('img');
+            img.src = event.target.result;
+            container.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    });
+
+    const datetime = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('datetime').textContent = datetime.toLocaleDateString('ar-EG', options);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
